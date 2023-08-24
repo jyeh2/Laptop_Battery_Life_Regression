@@ -6,6 +6,7 @@ import linear_reg
 
 
 file_data = the_file_scraper("battery-report.html")
+print(the_file_scraper.return_date())
 
 
 

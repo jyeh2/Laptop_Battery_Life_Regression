@@ -14,12 +14,12 @@ class the_file_scraper:
     charge_dep = []
 
     def __init__(self,file_name):
-        file_text = the_file_scraper.open_file("battery-report.html")
-        table_text = the_file_scraper.find_table(file_text, "Battery capacity history")
-        the_file_scraper.get_date(table_text)
-        the_file_scraper.get_mwh(table_text)
+        file_text = self.open_file("battery-report.html")
+        table_text = self.find_table(file_text, "Battery capacity history")
+        self.get_date(table_text)
+        self.get_mwh(table_text)
     
-    def open_file(filename):
+    def open_file(self,filename):
         '''opens the file and scrapes all the content'''
         file_object = open(filename, "r")
         html_data = file_object.read()
@@ -27,7 +27,7 @@ class the_file_scraper:
         data = BeautifulSoup(html_data, 'html.parser')
         return data
 
-    def get_numbers_only(input_string, mode): 
+    def get_numbers_only(self, input_string, mode): 
             '''Used to filter megawatt hours and date and TIME from the html code'''
             if mode == "date":
                 mode_code = r'\b\d{4}-\d{2}-\d{2}\b'
@@ -46,7 +46,7 @@ class the_file_scraper:
                 print("No number found in the input string.")
 
     
-    def find_table(htmldata, target_text):
+    def find_table(self, htmldata, target_text):
             '''locates and returns the appropriate table using target_text parameter'''
             h2_element = htmldata.find("h2", string=lambda text: text and text.strip() == target_text) 
             #addresses the issue of exact matching by stripping the whitespaces and \ns near the target string"
@@ -70,25 +70,24 @@ class the_file_scraper:
                 return f"didnt find with {target_text} sed :()"
 
 
-    def get_date(table):
-        '''returns a list of dates provided in the table column'''
+    def get_date(self, table):
+        '''modifies the existing dates_indep list in class provided in the table column'''
         dates = table.find_all("td", class_ = "dateTime") 
 
         if dates:
 
             dates_list = []
         
-        for date in dates:
-            filtered_date = date.prettify()
-            dates_list.append(the_file_scraper.get_numbers_only(filtered_date,"date"))
+            for date in dates:
+                filtered_date = date.prettify()
+                dates_list.append(self.get_numbers_only(filtered_date,"date"))
 
-        else: 
-            dates_indep = ["not found the mw class... please double check"] 
+
 
         the_file_scraper.dates_indep = dates_list
 
-    def get_mwh(table):
-        '''returns a list of megawatthours left(capacity) provided in the table column'''
+    def get_mwh(self, table):
+        '''modifies the existing charge_dep list in class provided in the table column'''
         #table = BeautifulSoup(result,"html.parser")
         charge_capacity_all = table.find_all("td", class_ = "mw")#contains the other column("Original Charge")
 
@@ -101,10 +100,8 @@ class the_file_scraper:
         
             for charge in charge_capacity_new:
                 mwh = charge.prettify()
-                charge_capacity_list.append(the_file_scraper.get_numbers_only(mwh,"mwh"))
+                charge_capacity_list.append(self.get_numbers_only(mwh,"mwh"))
 
-        else: 
-            the_file_scraper.charge_dep = ["not found the mw class... please double check"]
 
 
         the_file_scraper.charge_dep = charge_capacity_list
