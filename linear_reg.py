@@ -19,6 +19,7 @@ class linear_regression_model:
 
         linear_regression_model.x_train, linear_regression_model.x_test, linear_regression_model.y_train\
             , linear_regression_model.y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+    def apply_lin_reg():
 
         #Create and train the linear regression model
         model = LinearRegression()
