@@ -1,5 +1,11 @@
 import file_scraper
-import pandas as pd
-from sklearn.linear_model import LinearRegression
+from file_scraper import the_file_scraper
+
+import linear_reg
+
+
+
+file_data = the_file_scraper("battery-report.html")
+
 
 
