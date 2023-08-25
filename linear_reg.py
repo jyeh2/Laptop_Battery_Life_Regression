@@ -2,7 +2,7 @@ from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
-
+import numpy as np
 
 class linear_regression_model:
     x_train = []
@@ -11,26 +11,23 @@ class linear_regression_model:
     y_test = []
     mse = 0
     rmse = 0
-    def __init__(df):
+    def __init__(self,df):
         x = np.array(df.get("Dates")).reshape(-1, 1) 
         y = np.array(df.get("Charge Capacity(mwh)"))
-
         #Standard 80% training, 20% testing
-
-        linear_regression_model.x_train, linear_regression_model.x_test, linear_regression_model.y_train\
-            , linear_regression_model.y_test = train_test_split(x, y, test_size=0.2, random_state=42)
-    def apply_lin_reg():
+        self.x_train, self.x_test, self.y_train\
+            , self.y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
         #Create and train the linear regression model
         model = LinearRegression()
-        model.fit(x_train, y_train)
-
+        model.fit(self.x_train, self.y_train)
+        
         #Predict y from x
-        y_predicted = model.predict(x_test)
-
-        plt.scatter(x, y, label="Data")
-
-        plt.plot(x_test, y_predicted, color='red', label="Regression Line")
+        y_predicted = model.predict(self.x_test)
+        #plt.yticks(np.arange(np.min(self.y_train), np.max(self.y_train), 200))
+        plt.scatter(self.x_test, self.y_test, label="Test Data", marker='x', s=10)
+        
+        plt.plot(self.x_test, y_predicted, color='red', label="Regression Line")
 
         plt.xlabel("Date(Ordinal)")
         plt.ylabel("Charge Capacity")
@@ -38,9 +35,9 @@ class linear_regression_model:
         plt.show()
 
         #RMSE
-        mse = mean_squared_error(y_test, y_predicted)
+        linear_regression_model.mse = mean_squared_error(self.y_test, y_predicted)
 
-        rmse = np.sqrt(mse)
+        linear_regression_model.rmse = np.sqrt(self.mse)
 
         #1287 megawatt hours <- not bad
 

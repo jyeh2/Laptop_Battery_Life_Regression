@@ -100,7 +100,7 @@ class the_file_scraper:
         
             for charge in charge_capacity_new:
                 mwh = charge.prettify()
-                charge_capacity_list.append(self.get_numbers_only(mwh,"mwh"))
+                charge_capacity_list.append(int(self.get_numbers_only(mwh,"mwh")))
 
 
 
