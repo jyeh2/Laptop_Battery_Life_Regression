@@ -1,0 +1,13 @@
+RMSE of Model :1287.7508023501166
+Predicted Battery Charge 1 week after: [53661.32786396]
+Predicted Battery Charge 2 week after: [53526.05630248]
+Predicted Battery Charge 3 week after: [53390.78474101]
+Predicted Battery Charge 4 week after: [53255.51317953]
+Predicted Battery Charge 5 week after: [53120.24161805]
+Predicted Battery Charge 6 week after: [52984.97005658]
+Predicted Battery Charge 7 week after: [52849.6984951]
+Predicted Battery Charge 8 week after: [52714.42693362]
+Predicted Battery Charge 9 week after: [52579.15537215]
+Predicted Battery Charge 10 week after: [52443.88381067]
+Predicted Battery Charge 11 week after: [52308.61224919]
+Predicted Battery Charge 12 week after: [52173.34068772]

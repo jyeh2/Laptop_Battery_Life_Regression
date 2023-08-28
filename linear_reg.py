@@ -11,28 +11,30 @@ class linear_regression_model:
     y_test = []
     mse = 0
     rmse = 0
+    model = LinearRegression()
     def __init__(self,df):
         x = np.array(df.get("Dates")).reshape(-1, 1) 
         y = np.array(df.get("Charge Capacity(mwh)"))
         #Standard 80% training, 20% testing
         self.x_train, self.x_test, self.y_train\
             , self.y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+        self.linear_regression()
 
+    def linear_regression(self):
         #Create and train the linear regression model
-        model = LinearRegression()
-        model.fit(self.x_train, self.y_train)
+        
+        self.model.fit(self.x_train, self.y_train)
         
         #Predict y from x
-        y_predicted = model.predict(self.x_test)
-        #plt.yticks(np.arange(np.min(self.y_train), np.max(self.y_train), 200))
+        y_predicted = self.model.predict(self.x_test)
         plt.scatter(self.x_test, self.y_test, label="Test Data", marker='x', s=10)
-        
-        plt.plot(self.x_test, y_predicted, color='red', label="Regression Line")
+        #Note to self, when ticks are grouped together, you probably forgot to convert the values to int
+        plt.plot(self.x_test, y_predicted, color='red', label="Trained Data Prediction")
 
         plt.xlabel("Date(Ordinal)")
         plt.ylabel("Charge Capacity")
         plt.legend()
-        plt.show()
+        plt.savefig('Lin_Reg.png')
 
         #RMSE
         linear_regression_model.mse = mean_squared_error(self.y_test, y_predicted)
@@ -41,7 +43,8 @@ class linear_regression_model:
 
         #1287 megawatt hours <- not bad
 
-
+    def prediction(self,x_value):
+        return self.model.predict([[x_value]])
     
     @staticmethod
     def return_MSE():
