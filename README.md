@@ -5,3 +5,8 @@ This all-purpose project involves me experimenting with linear regression, using
 HOWEVER, the process of determining battery life of everyone else's is much more difficult -- as there are different factors that account into the degradation of batteries -- like the temperature the battery operates at(the higher the more damaging), which maybe an exponential factor, or maybe the installation of battery optimization systems that varies from manufactuer to manufacturer.
 Not exactly a completely linear or exponential regression process.
 
+Another future attempt maybe to simply incorporating additional actors without sacraficing the sake of parsimony(simpleness of this model). Like operating temperature, brightness... etc. Which makes it harder to predict(larger rooms for error)
+
+Packages I used:
+Matplotlib, ScikitLearn, BeautifulSoup, Pandas, Numpy
+
